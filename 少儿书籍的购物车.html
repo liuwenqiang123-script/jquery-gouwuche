@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的购物车-商城</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/car.css">
+    <!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
+    <!--<script src="js/car.js"></script>-->
+</head>
+
+<body>
+
+<div class="c-container">
+    <div class="w">
+        <div class="cart-filter-bar">
+            <em>全部商品</em>
+        </div>
+        <!-- 购物车主要核心区域 -->
+        <div class="cart-warp">
+            <!-- 头部全选模块 -->
+            <div class="cart-thead">
+                <div class="t-checkbox">
+                    <input type="checkbox" name="" class="checkall"> 全选
+                </div>
+                <div class="t-goods">商品</div>
+                <div class="t-price">单价</div>
+                <div class="t-num">数量</div>
+                <div class="t-sum">小计</div>
+                <div class="t-action">操作</div>
+            </div>
+            <!-- 商品详细模块 -->
+            <div class="cart-item-list">
+                <div class="cart-item check-cart-item">
+                    <div class="p-checkbox">
+                        <input type="checkbox" name=""checked class="j-checkbox">
+                    </div>
+                    <div class="p-goods">
+                        <div class="p-img">
+                            <img src="upload/p1.jpg" alt="">
+                        </div>
+                        <div class="p-msg">【5本26.8元】经典儿童文学彩图青少版八十天环游地球中学生语文教学大纲</div>
+                    </div>
+                    <div class="p-price">￥12.60</div>
+                    <div class="p-num">
+                        <div class="quantity-form">
+                            <a href="javascript:;" class="decrement">-</a>
+                            <input type="text" class="itxt" value="11">
+                            <a href="javascript:;" class="increment">+</a>
+                        </div>
+                    </div>
+                    <div class="p-sum">￥12.60</div>
+                    <div class="p-action"><a href="javascript:;">删除</a></div>
+                </div>
+                <div class="cart-item">
+                    <div class="p-checkbox">
+                        <input type="checkbox" name=""  class="j-checkbox">
+                    </div>
+                    <div class="p-goods">
+                        <div class="p-img">
+                            <img src="upload/p2.jpg" alt="">
+                        </div>
+                        <div class="p-msg">【2000张贴纸】贴纸书 3-6岁 贴画儿童 贴画书全套12册 贴画 贴纸儿童 汽</div>
+                    </div>
+                    <div class="p-price">￥24.80</div>
+                    <div class="p-num">
+                        <div class="quantity-form">
+                            <a href="javascript:;" class="decrement">-</a>
+                            <input type="text" class="itxt" value="1">
+                            <a href="javascript:;" class="increment">+</a>
+                        </div>
+                    </div>
+                    <div class="p-sum">￥24.80</div>
+                    <div class="p-action"><a href="javascript:;">删除</a></div>
+                </div>
+                <div class="cart-item">
+                    <div class="p-checkbox">
+                        <input type="checkbox" name=""  class="j-checkbox">
+                    </div>
+                    <div class="p-goods">
+                        <div class="p-img">
+                            <img src="upload/p3.jpg" alt="">
+                        </div>
+                        <div class="p-msg">唐诗三百首+成语故事全2册 一年级课外书 精装注音儿童版 小学生二三年级课外阅读书籍</div>
+                    </div>
+                    <div class="p-price">￥29.80</div>
+                    <div class="p-num">
+                        <div class="quantity-form">
+                            <a href="javascript:;" class="decrement">-</a>
+                            <input type="text" class="itxt" value="1">
+                            <a href="javascript:;" class="increment">+</a>
+                        </div>
+                    </div>
+                    <div class="p-sum">￥29.80</div>
+                    <div class="p-action"><a href="javascript:;">删除</a></div>
+                </div>
+            </div>
+
+            <!-- 结算模块 -->
+            <div class="cart-floatbar">
+                <div class="select-all">
+                    <input type="checkbox" name="" id="" class="checkall">全选
+                </div>
+                <div class="operation">
+                    <a href="javascript:;" class="remove-batch"> 删除选中的商品</a>
+                    <a href="javascript:;" class="clear-all">清理购物车</a>
+                </div>
+                <div class="toolbar-right">
+                    <div class="amount-sum">已经选<em>1</em>件商品</div>
+                    <div class="price-sum">总价： <em>￥12.60</em></div>
+                    <div class="btn-area">去结算</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src = "js/jquery.min.js"></script>
+<script>
+    // 1. 实现全选
+$(function () {
+    $(".checkall").change(function () {
+        $(".j-checkbox,.checkall").prop("checked",$(this).prop("checked"));
+        if ($(this).prop("checked")){
+            $(".j-checkbox").parent().parent().addClass("checked",$(this).prop("checked"));
+        }else{
+            $(".j-checkbox").parent().parent().addClass("checked",$(this).remove("checked"));   
+        }
+    })
+    
+    
+    // 2.点击三个checkbox 控制 checked同步
+    $(".j-checkbox").change(function () {
+        var cl = $(".j-checkbox:checked").length;
+        var l = $(".j-checkbox").length;
+        $(".checkall").prop("checked",cl === l)
+        if ($(this).prop("checked")){
+            $(this).parent().parent().addClass("check-cart-item")
+        } else{
+            $(this).parent().parent().removeClass("check-cart-item");
+        }
+    })
+//    3.商品数量控制，电机+-，修改个数
+    $(".decrement").click(function () {
+        var n = $(this).siblings(".itxt").val() - 0;
+        if (n === 1){
+            return false;
+        }
+        n--;
+        $(this).siblings(".itxt").val(n);
+        var  pPrice = $(this).parent().parent().siblings(".p-price").html().substr(1);
+        var num = $(this).siblings(".itxt").val()
+        $(this).parent().parent().siblings(".p-sum").html("￥" + (num * pPrice).toFixed(2))
+        getsum();
+    })
+    $(".increment").click(function () {
+        var n = $(this).siblings(".itxt").val() - 0;
+        if (n === 20){
+            return false;
+        }
+        n++;
+        $(this).siblings(".itxt").val(n);
+        var  pPrice = $(this).parent().parent().siblings(".p-price").html().substr(1);
+        var num = $(this).siblings(".itxt").val()
+        $(this).parent().parent().siblings(".p-sum").html("￥" + (num * pPrice).toFixed(2))
+        getsum();
+    })
+//   4.input 被直接输入，改成小计
+    $(".itxt").change(function () {
+        if ($(this).val() > 99){
+            $(this).val = 99
+        }
+        var pPrice = $(this).parent().parent().siblings(".p-price").html().substr(1);
+        var num = $(this).val()
+        $(this).parent().parent().siblings(".p-sum").html("￥" + (num * pPrice).toFixed(2))
+        getsum();
+    })
+    //    5. 总价 和 总件数
+        getsum();
+        function getsum() {
+            var sum = 0;
+            $(".p-sum").each(function (i,v) {
+                sum += Number($(v).html().substr(1))
+            })
+            $(".price-sum em").html("￥" + sum)
+        }
+//    6.点击删除，删除这一行
+    $(".p-action").click(function () {
+        if (confirm("确定删除吗？")){
+            $(this).parent().remove()
+        } else{
+            return false
+        }
+    })
+//    7.点击remove-batch删除已选中
+    $(".remove-batch").click(function () {
+        if (confirm("确定删除吗？")){
+            $(".j-checkbox:checked").parent().parent().remove();
+        } else{
+            return false
+        }
+    })
+//    8.删除全部
+    $(".clear-all").click(function () {
+        if (confirm("确定删除吗？")){
+            $(".j-checkbox").parent().parent().remove()
+        } else{
+            return false;
+        }
+    })
+})
+</script>
+</body>
+</html>
